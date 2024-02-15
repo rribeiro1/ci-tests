@@ -15,7 +15,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetches all history for all branches and tags
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: List Files
         run: ls -al
@@ -29,8 +29,13 @@ jobs:
       - name: Display content of application.txt
         run: cat application.txt
 
-      - name: Get Previous Commit SHA
-        run: echo ${{ github.event.pull_request.head.sha }}
+      - name: Display PR number
+        run: echo ${{ github.event.pull_request.number }}
 
-      - name: Display SHA
+      # Refers to the commit SHA that is the head of the branch at the time the event triggered the workflow.
+      - name: Display Github SHA
         run: echo ${{ github.sha }}
+
+      # Refers to the latest commit SHA of the pull request's head branch at the time the event is triggered.
+      - name: Display Pull Request Head SHA
+        run: echo ${{ github.event.pull_request.head.sha }}

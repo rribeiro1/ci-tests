@@ -29,8 +29,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Display SHA (Current commit)
+      - name: Display PR number
+        run: echo ${{ github.event.pull_request.number }}
+
+      # Refers to the commit SHA that is the head of the branch at the time the event triggered the workflow.
+      - name: Display Github SHA
         run: echo ${{ github.sha }}
 
-      - name: Display HEAD SHA
+      # Refers to the latest commit SHA of the pull request's head branch at the time the event is triggered.
+      - name: Display Pull Request Head SHA
         run: echo ${{ github.event.pull_request.head.sha }}
