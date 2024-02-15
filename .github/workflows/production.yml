@@ -15,7 +15,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0  # Fetches all history for all branches and tags
+
+      - name: List Files
+        run: ls -al
+
+      - name: Display content of application.txt
+        run: cat application.txt
 
       - name: Get Previous Commit SHA
         run: echo "PREVIOUS_SHA=$(git rev-parse HEAD~1)" >> $GITHUB_ENV
