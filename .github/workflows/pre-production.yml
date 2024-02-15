@@ -1,0 +1,34 @@
+name: Pre-production Pipeline
+
+on:
+  pull_request:
+  pull_request_target:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+  build-container:
+    name: Build Container
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Get & Format Branch Name
+        id: branch
+        run: |
+          name=${{ github.head_ref || github.ref_name }}
+          name=${name//\//-}
+          echo "name=$name" >> $GITHUB_OUTPUT
+
+      - name: Display Branch Name
+        run: echo ${{ steps.branch.outputs.name }}
+
+      - name: Display SHA
+        run: echo ${{ github.sha }}
