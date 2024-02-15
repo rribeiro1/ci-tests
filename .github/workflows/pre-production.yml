@@ -19,6 +19,12 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+      - name: List Files
+        run: ls -al
+
+      - name: Display content of application.txt
+        run: cat application.txt
+
   build-container:
     name: Build Container
     runs-on: ubuntu-latest

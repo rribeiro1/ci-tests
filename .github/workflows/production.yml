@@ -20,6 +20,9 @@ jobs:
       - name: List Files
         run: ls -al
 
+      - name: Display content of application.txt
+        run: cat application.txt
+
       - name: Get Previous Commit SHA
         run: echo "PREVIOUS_SHA=$(git rev-parse HEAD~1)" >> $GITHUB_ENV
 
