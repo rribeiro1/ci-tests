@@ -1,21 +1,21 @@
 name: Production Pipeline
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches:
-      - 'main'
-  # Allows running the workflow manually via the actions tab
-  workflow_dispatch:
+      - main
 
 jobs:
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetches all history for all branches and tags
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: List Files
         run: ls -al
@@ -24,10 +24,7 @@ jobs:
         run: cat application.txt
 
       - name: Get Previous Commit SHA
-        run: echo "PREVIOUS_SHA=$(git rev-parse HEAD~1)" >> $GITHUB_ENV
+        run: echo ${{ github.event.pull_request.head.sha }}
 
-      - name: Display SHA current commit
+      - name: Display SHA
         run: echo ${{ github.sha }}
-
-      - name: Display SHA previous commit (Latest commit of PR branch)
-        run: echo ${{ env.PREVIOUS_SHA }}
