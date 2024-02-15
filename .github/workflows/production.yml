@@ -1,0 +1,21 @@
+name: Production Pipeline
+
+on:
+  push:
+    branches:
+      - 'main'
+  # Allows running the workflow manually via the actions tab
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Display SHA
+        run: echo ${{ github.sha }}
