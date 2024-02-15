@@ -7,6 +7,10 @@ on:
 
 jobs:
   build:
+    if: |
+      (github.event_name == 'pull_request' && github.actor != 'dependabot[bot]') ||
+      (github.event_name == 'pull_request_target' && github.actor == 'dependabot[bot]') ||
+      (github.event_name == 'workflow_dispatch')
     name: Test
     runs-on: ubuntu-latest
     steps:
@@ -30,5 +34,5 @@ jobs:
       - name: Display Branch Name
         run: echo ${{ steps.branch.outputs.name }}
 
-      - name: Display SHA
+      - name: Display SHA (Current commit)
         run: echo ${{ github.sha }}

@@ -17,5 +17,11 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Display SHA
+      - name: Get Previous Commit SHA
+        run: echo "PREVIOUS_SHA=$(git rev-parse HEAD~1)" >> $GITHUB_ENV
+
+      - name: Display SHA current commit
         run: echo ${{ github.sha }}
+
+      - name: Display SHA previous commit (Latest commit of PR branch)
+        run: echo ${{ env.PREVIOUS_SHA }}
