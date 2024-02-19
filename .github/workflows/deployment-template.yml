@@ -9,7 +9,7 @@ on:
       is-production-pipeline:
         required: false
         type: boolean
-        default: true
+        default: false
 
 jobs:
   terraform:
