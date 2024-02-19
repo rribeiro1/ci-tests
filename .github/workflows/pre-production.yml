@@ -46,4 +46,3 @@ jobs:
     uses: ./.github/workflows/deployment-template.yml
     with:
       github-environment: development
-      test: true
