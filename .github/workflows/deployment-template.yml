@@ -16,7 +16,7 @@ jobs:
     name: "Test"
     runs-on: ubuntu-latest
     environment:
-      name: ${{ inputs.is-production-pipeline && 'none' || inputs.github-environment }}
+      name: ${{ inputs.is-production-pipeline && 'production' || inputs.github-environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
