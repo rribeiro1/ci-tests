@@ -45,4 +45,4 @@ jobs:
     needs: build-container
     uses: ./.github/workflows/deployment-template.yml
     with:
-      is-production-pipeline: true
+      github-environment: development
