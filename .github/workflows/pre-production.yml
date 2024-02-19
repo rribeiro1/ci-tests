@@ -39,3 +39,10 @@ jobs:
       # Refers to the latest commit SHA of the pull request's head branch at the time the event is triggered.
       - name: Display Pull Request Head SHA
         run: echo ${{ github.event.pull_request.head.sha }}
+
+  deploy:
+    name: Deployment Template
+    needs: build-container
+    uses: ./.github/workflows/deployment-template.yml
+    with:
+      is-production-pipeline: true
