@@ -1,0 +1,22 @@
+name: "Deployment Template"
+
+on:
+  workflow_call:
+    inputs:
+      github-environment:
+        required: false
+        type: string
+      is-production-pipeline:
+        required: false
+        type: boolean
+        default: true
+
+jobs:
+  terraform:
+    name: "Test"
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.is-production-pipeline && 'none' || inputs.github-environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
